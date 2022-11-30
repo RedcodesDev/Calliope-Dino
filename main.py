@@ -45,7 +45,7 @@ def run():
 
         #Jump if needed
         if jumpState >= 1:
-            for y in range(5):
+            for y in range(4):
                 led.unplot(1, y)
             if jumpState < 3:
                 led.plot_brightness(1, 2 - jumpState, 255)
@@ -92,7 +92,8 @@ def dead():
     global score, mainMenu
     basic.clear_screen()
     basic.show_string("GAMEOVER")
-    basic.show_string("SCORE" + score)
+    basic.show_string("SCORE")
+    basic.show_number(score)
     basic.clear_screen()
     basic.plot_leds("""
     . . # . .
@@ -101,6 +102,7 @@ def dead():
     # . . . #
     # . . . #
     """)
+
     mainMenu = True
 
 #Method to start jumping

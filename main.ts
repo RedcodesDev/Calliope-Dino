@@ -31,7 +31,7 @@ function run() {
         basic.pause(1000 / fps)
         // Jump if needed
         if (jumpState >= 1) {
-            for (y = 0; y < 5; y++) {
+            for (y = 0; y < 4; y++) {
                 led.unplot(1, y)
             }
             if (jumpState < 3) {
@@ -97,7 +97,8 @@ function dead() {
     
     basic.clearScreen()
     basic.showString("GAMEOVER")
-    basic.showString("SCORE" + score)
+    basic.showString("SCORE")
+    basic.showNumber(score)
     basic.clearScreen()
     basic.plotLeds(`
     . . # . .
