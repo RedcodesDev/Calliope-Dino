@@ -1,10 +1,12 @@
 holding = False
 mainMenu = True
 fps = 7.5
-alive = True
+alive = False
 groundBrightness = 10
 blockBrightness = 150
 playerBrightness = 255
+jumpState = 0
+score = 0
 
 #Start plot
 basic.plot_leds("""
@@ -15,8 +17,6 @@ basic.plot_leds("""
 # . . . #
 """)
 
-input.on_button_event(Button.A, input.button_event_click(), a_controller)
-
 def a_controller():
     global holding, mainMenu
 
@@ -24,18 +24,40 @@ def a_controller():
         start()
     elif holding:
         run()
-    else:
+
+def b_controller():
+    global alive
+
+    if alive:
         jump()
 
 def run():
-    global holding, mainMenu, fps, blockBrightness, playerBrightness
+    global holding, mainMenu, fps, blockBrightness, playerBrightness, jumpState, alive, score
     blockPos = []
     holding = False
     blockOnScreen = False
+    alive = True
     while alive:
         basic.pause(1000 / fps)
+
+        #Jump if needed
+        if jumpState >= 1:
+            for y in range(5):
+                led.unplot(1, y)
+            if jumpState < 3:
+                led.plot_brightness(1, 2 - jumpState, 255)
+                led.plot_brightness(1, 3 - jumpState, 255)
+            elif jumpState >= 3:
+                led.plot_brightness(1, 0 + (jumpState - 3), 255)
+                led.plot_brightness(1, 1 + (jumpState - 3), 255)
+            jumpState += 1
+            if jumpState == 6:
+               jumpState = 0
+
+        #Move block
         if not blockOnScreen:
             if randint(0, 5) == 5:
+                score += 1
                 block = randint(1, 3)
                 led.plot_brightness(4, block, blockBrightness)
                 blockPos[0] = int(4)
@@ -45,11 +67,8 @@ def run():
         else:
             x = blockPos[0]
             y = blockPos[1]
-            if (x != 1):
+            if led.point_brightness(x, y) != playerBrightness:
                 led.unplot(x, y)
-            else:
-                if not(y >= 2 and y <=3):
-                    led.unplot(x, y)
             x -= 1
             if x >= 0:
                 blockPos[0] = int(x)
@@ -58,8 +77,29 @@ def run():
             else:
                 blockOnScreen = False
 
+            #Check if player collides with block
+            if led.point_brightness(x, y) == playerBrightness:
+                alive = False
+                dead()
+
+def dead():
+    global score, mainMenu
+    basic.clear_screen()
+    basic.show_string("GAMEOVER")
+    basic.show_string("SCORE" + score)
+    basic.clear_screen()
+    basic.plot_leds("""
+    . . # . .
+    . # . # .
+    # # # # #
+    # . . . #
+    # . . . #
+    """)
+    mainMenu = True
+
 def jump():
-    pass
+    global jumpState
+    jumpState = 1
 
 def start():
     global holding, mainMenu, groundBrightness, playerBrightness
@@ -121,3 +161,5 @@ def jingle():
 
 
 input.on_button_event(Button.AB, input.button_event_click(), jingle)
+input.on_button_event(Button.A, input.button_event_click(), a_controller)
+input.on_button_event(Button.B, input.button_event_click(), b_controller)
