@@ -118,7 +118,6 @@ def start():
     basic.clear_screen()
     for i in range(5):
         led.plot_brightness(i, 4, groundBrightness)
-
     led.plot_brightness(1, 2, playerBrightness)
     led.plot_brightness(1, 3, playerBrightness)
     holding = True
