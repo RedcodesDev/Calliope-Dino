@@ -17,10 +17,10 @@ input.onButtonEvent(Button.A, input.buttonEventClick(), function a_controller() 
     
     if (mainMenu) {
         start()
-    }
-    
-    if (holding) {
+    } else if (holding) {
         run()
+    } else {
+        jump()
     }
     
 })
@@ -69,6 +69,10 @@ function run() {
     }
 }
 
+function jump() {
+    
+}
+
 function start() {
     
     mainMenu = false
@@ -82,5 +86,48 @@ function start() {
 }
 
 input.onButtonEvent(Button.AB, input.buttonEventClick(), function jingle() {
-    music.playTone(Note.C, music.beat())
+    // Axel F jingle because why not
+    music.playTone(Note.D, 200)
+    basic.pause(200)
+    music.playTone(Note.D, 200)
+    basic.pause(200)
+    music.playTone(Note.D, 200)
+    basic.pause(200)
+    music.playTone(Note.F, 200)
+    basic.pause(100)
+    music.playTone(Note.D, 200)
+    basic.pause(100)
+    music.playTone(Note.G, 200)
+    basic.pause(50)
+    music.playTone(Note.D, 200)
+    basic.pause(50)
+    music.playTone(Note.C, 200)
+    basic.pause(100)
+    music.playTone(Note.D, 200)
+    basic.pause(150)
+    music.playTone(Note.A, 200)
+    basic.pause(150)
+    music.playTone(Note.D, 200)
+    basic.pause(100)
+    music.playTone(Note.Bb, 200)
+    basic.pause(100)
+    music.playTone(Note.A, 200)
+    basic.pause(100)
+    music.playTone(Note.G, 200)
+    basic.pause(100)
+    music.playTone(Note.D, 200)
+    basic.pause(100)
+    music.playTone(Note.A, 200)
+    basic.pause(100)
+    music.playTone(Note.D5, 200)
+    basic.pause(150)
+    music.playTone(Note.D, 200)
+    basic.pause(100)
+    music.playTone(Note.C, 200)
+    basic.pause(100)
+    music.playTone(Note.C, 200)
+    basic.pause(100)
+    music.playTone(Note.E, 200)
+    basic.pause(100)
+    music.playTone(Note.D, 200)
 })

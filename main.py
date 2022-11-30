@@ -22,8 +22,10 @@ def a_controller():
 
     if mainMenu:
         start()
-    if holding:
+    elif holding:
         run()
+    else:
+        jump()
 
 def run():
     global holding, mainMenu, fps, blockBrightness, playerBrightness
@@ -56,6 +58,9 @@ def run():
             else:
                 blockOnScreen = False
 
+def jump():
+    pass
+
 def start():
     global holding, mainMenu, groundBrightness, playerBrightness
 
@@ -69,6 +74,50 @@ def start():
     holding = True
 
 def jingle():
-    music.play_tone(Note.C, music.beat())
+    #Axel F jingle because why not
+    music.play_tone(Note.D, 200)
+    basic.pause(200)
+    music.play_tone(Note.D, 200)
+    basic.pause(200)
+    music.play_tone(Note.D, 200)
+    basic.pause(200)
+    music.play_tone(Note.F, 200)
+    basic.pause(100)
+    music.play_tone(Note.D, 200)
+    basic.pause(100)
+    music.play_tone(Note.G, 200)
+    basic.pause(50)
+    music.play_tone(Note.D, 200)
+    basic.pause(50)
+    music.play_tone(Note.C, 200)
+    basic.pause(100)
+    music.play_tone(Note.D, 200)
+    basic.pause(150)
+    music.play_tone(Note.A, 200)
+    basic.pause(150)
+    music.play_tone(Note.D, 200)
+    basic.pause(100)
+    music.play_tone(Note.BB, 200)
+    basic.pause(100)
+    music.play_tone(Note.A, 200)
+    basic.pause(100)
+    music.play_tone(Note.G, 200)
+    basic.pause(100)
+    music.play_tone(Note.D, 200)
+    basic.pause(100)
+    music.play_tone(Note.A, 200)
+    basic.pause(100)
+    music.play_tone(Note.D5, 200)
+    basic.pause(150)
+    music.play_tone(Note.D, 200)
+    basic.pause(100)
+    music.play_tone(Note.C, 200)
+    basic.pause(100)
+    music.play_tone(Note.C, 200)
+    basic.pause(100)
+    music.play_tone(Note.E, 200)
+    basic.pause(100)
+    music.play_tone(Note.D, 200)
+
 
 input.on_button_event(Button.AB, input.button_event_click(), jingle)
