@@ -8,7 +8,7 @@ playerBrightness = 255
 jumpState = 0
 score = 0
 
-#Start plot
+#Main Menu
 basic.plot_leds("""
 . . # . .
 . # . # .
@@ -17,6 +17,7 @@ basic.plot_leds("""
 # . . . #
 """)
 
+# A Button Handler
 def a_controller():
     global holding, mainMenu
 
@@ -25,12 +26,14 @@ def a_controller():
     elif holding:
         run()
 
+# B Button Handler
 def b_controller():
     global alive
 
     if alive:
         jump()
 
+# Method is executed at start of running the game
 def run():
     global holding, mainMenu, fps, blockBrightness, playerBrightness, jumpState, alive, score
     blockPos = []
@@ -57,6 +60,7 @@ def run():
         #Move block
         if not blockOnScreen:
             if randint(0, 5) == 5:
+                #Spawn block
                 score += 1
                 block = randint(1, 3)
                 led.plot_brightness(4, block, blockBrightness)
@@ -65,6 +69,7 @@ def run():
                 basic.pause(200)    
                 blockOnScreen = True
         else:
+            #Move block
             x = blockPos[0]
             y = blockPos[1]
             if led.point_brightness(x, y) != playerBrightness:
@@ -82,6 +87,7 @@ def run():
                 alive = False
                 dead()
 
+#Method for handling if a player dies
 def dead():
     global score, mainMenu
     basic.clear_screen()
@@ -97,10 +103,12 @@ def dead():
     """)
     mainMenu = True
 
+#Method to start jumping
 def jump():
     global jumpState
     jumpState = 1
 
+#Method for Main Menu
 def start():
     global holding, mainMenu, groundBrightness, playerBrightness
 
@@ -113,6 +121,7 @@ def start():
     led.plot_brightness(1, 3, playerBrightness)
     holding = True
 
+# Easter-Egg Jingle Method
 def jingle():
     #Axel F jingle because why not
     music.play_tone(Note.D, 200)
@@ -160,6 +169,7 @@ def jingle():
     music.play_tone(Note.D, 200)
 
 
+# Button Events
 input.on_button_event(Button.AB, input.button_event_click(), jingle)
 input.on_button_event(Button.A, input.button_event_click(), a_controller)
 input.on_button_event(Button.B, input.button_event_click(), b_controller)

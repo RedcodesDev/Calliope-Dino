@@ -7,7 +7,7 @@ let blockBrightness = 150
 let playerBrightness = 255
 let jumpState = 0
 let score = 0
-// Start plot
+// Main Menu
 basic.plotLeds(`
 . . # . .
 . # . # .
@@ -15,6 +15,9 @@ basic.plotLeds(`
 # . . . #
 # . . . #
 `)
+//  A Button Handler
+//  B Button Handler
+//  Method is executed at start of running the game
 function run() {
     let y: number;
     let block: number;
@@ -49,6 +52,7 @@ function run() {
         // Move block
         if (!blockOnScreen) {
             if (randint(0, 5) == 5) {
+                // Spawn block
                 score += 1
                 block = randint(1, 3)
                 led.plotBrightness(4, block, blockBrightness)
@@ -59,6 +63,7 @@ function run() {
             }
             
         } else {
+            // Move block
             x = blockPos[0]
             y = blockPos[1]
             if (led.pointBrightness(x, y) != playerBrightness) {
@@ -87,6 +92,7 @@ function run() {
     }
 }
 
+// Method for handling if a player dies
 function dead() {
     
     basic.clearScreen()
@@ -103,11 +109,13 @@ function dead() {
     mainMenu = true
 }
 
+// Method to start jumping
 function jump() {
     
     jumpState = 1
 }
 
+// Method for Main Menu
 function start() {
     
     mainMenu = false
@@ -120,6 +128,8 @@ function start() {
     holding = true
 }
 
+//  Easter-Egg Jingle Method
+//  Button Events
 input.onButtonEvent(Button.AB, input.buttonEventClick(), function jingle() {
     // Axel F jingle because why not
     music.playTone(Note.D, 200)
