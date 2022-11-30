@@ -95,6 +95,7 @@ function run() {
 // Method for handling if a player dies
 function dead() {
     
+    jumpState = 0
     basic.clearScreen()
     basic.showString("GAMEOVER")
     basic.showString("SCORE")
@@ -113,7 +114,10 @@ function dead() {
 // Method to start jumping
 function jump() {
     
-    jumpState = 1
+    if (jumpState == 0) {
+        jumpState = 1
+    }
+    
 }
 
 // Method for Main Menu
