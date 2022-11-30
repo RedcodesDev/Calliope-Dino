@@ -1,5 +1,6 @@
 # Calliope-Dino
-🦖 A Jump &amp; Run running on the Calliope Mini
+🦖 A Jump &amp; Run running on the Calliope Mini.<br>
+<i>Based on the [Chrome Dino](https://en.wikipedia.org/wiki/Dinosaur_Game) Game</i>
 
 ---
 
