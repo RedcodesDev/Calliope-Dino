@@ -95,8 +95,9 @@ function run() {
 
 // Method for handling if a player dies
 function dead() {
-    basic.setLedColor(basic.rgb(255, 0, 0))
     
+    basic.setLedColor(basic.rgb(255, 0, 0))
+    mainMenu = false
     basic.clearScreen()
     basic.plotLeds(`
     . . . . .

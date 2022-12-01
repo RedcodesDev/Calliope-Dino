@@ -90,8 +90,9 @@ def run():
 
 #Method for handling if a player dies
 def dead():
-    basic.set_led_color(basic.rgb(255, 0, 0))
     global score, mainMenu
+    basic.set_led_color(basic.rgb(255, 0, 0))
+    mainMenu = False
     basic.clear_screen()
     basic.plot_leds("""
     . . . . .
