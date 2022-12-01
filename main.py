@@ -37,6 +37,7 @@ def b_controller():
 def run():
     global holding, mainMenu, fps, blockBrightness, playerBrightness, jumpState, alive, score
     blockPos = []
+    basic.set_led_color(basic.rgb(0, 255, 0))
     holding = False
     blockOnScreen = False
     alive = True
@@ -89,10 +90,23 @@ def run():
 
 #Method for handling if a player dies
 def dead():
+    basic.set_led_color(basic.rgb(255, 0, 0))
     global score, mainMenu
     basic.clear_screen()
-    basic.show_string("GAMEOVER")
-    basic.show_string("SCORE")
+    basic.plot_leds("""
+    . . . . .
+    . # . # .
+    . . . . .
+    . # # # .
+    # . . . #
+    """)
+    basic.pause(2000)
+    basic.clear_screen()
+    if storage.get_number(StorageSlots.S1) < score:
+        storage.put_number(StorageSlots.S1, score)
+        basic.show_string("NEWHIGHSCORE")
+    else:
+        basic.show_string("SCORE")
     basic.show_number(score)
     basic.clear_screen()
     basic.plot_leds("""
@@ -102,8 +116,9 @@ def dead():
     # . . . #
     # . . . #
     """)
-
+    score = 0
     mainMenu = True
+    basic.turn_rgb_led_off()
 
 #Method to start jumping
 def jump():
