@@ -89,7 +89,8 @@ def run():
 
 #Method for handling if a player dies
 def dead():
-    global score, mainMenu
+    global score, mainMenu, jumpState
+    jumpState = 0
     basic.clear_screen()
     basic.show_string("GAMEOVER")
     basic.show_string("SCORE")
@@ -108,7 +109,8 @@ def dead():
 #Method to start jumping
 def jump():
     global jumpState
-    jumpState = 1
+    if jumpState == 0:
+        jumpState = 1
 
 #Method for Main Menu
 def start():
