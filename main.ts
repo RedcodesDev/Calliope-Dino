@@ -24,6 +24,7 @@ function run() {
     let x: number;
     
     let blockPos = []
+    basic.setLedColor(basic.rgb(0, 255, 0))
     holding = false
     let blockOnScreen = false
     alive = true
@@ -94,11 +95,26 @@ function run() {
 
 // Method for handling if a player dies
 function dead() {
-    
+    basic.setLedColor(basic.rgb(255, 0, 0))
+    mainMenu = false
+    basic.clearScreen()
+    basic.plotLeds(`
+    . . . . .
+    . # . # .
+    . . . . .
+    . # # # .
+    # . . . #
+    `)
+    basic.pause(2000)
     jumpState = 0
     basic.clearScreen()
-    basic.showString("GAMEOVER")
-    basic.showString("SCORE")
+    if (storage.getNumber(StorageSlots.s1) < score) {
+        storage.putNumber(StorageSlots.s1, score)
+        basic.showString("NEWHIGHSCORE")
+    } else {
+        basic.showString("SCORE")
+    }
+    
     basic.showNumber(score)
     basic.clearScreen()
     basic.plotLeds(`
@@ -108,7 +124,9 @@ function dead() {
     # . . . #
     # . . . #
     `)
+    score = 0
     mainMenu = true
+    basic.turnRgbLedOff()
 }
 
 // Method to start jumping
