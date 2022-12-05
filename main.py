@@ -20,7 +20,6 @@ basic.plot_leds("""
 # A Button Handler
 def a_controller():
     global holding, mainMenu
-
     if mainMenu:
         start()
     elif holding:
@@ -29,7 +28,6 @@ def a_controller():
 # B Button Handler
 def b_controller():
     global alive
-
     if alive:
         jump()
 
@@ -42,7 +40,6 @@ def run():
     alive = True
     while alive:
         basic.pause(1000 / fps)
-
         #Jump if needed
         if jumpState >= 1:
             for y in range(4):
@@ -56,7 +53,6 @@ def run():
             jumpState += 1
             if jumpState == 6:
                jumpState = 0
-
         #Move block
         if not blockOnScreen:
             if randint(0, 5) == 5:
@@ -81,7 +77,6 @@ def run():
                     led.plot_brightness(x, y, blockBrightness)
             else:
                 blockOnScreen = False
-
             #Check if player collides with block
             if led.point_brightness(x, y) == playerBrightness:
                 alive = False
@@ -103,7 +98,6 @@ def dead():
     # . . . #
     # . . . #
     """)
-
     mainMenu = True
 
 #Method to start jumping
@@ -115,12 +109,10 @@ def jump():
 #Method for Main Menu
 def start():
     global holding, mainMenu, groundBrightness, playerBrightness
-
     mainMenu = False
     basic.clear_screen()
     for i in range(5):
         led.plot_brightness(i, 4, groundBrightness)
-
     led.plot_brightness(1, 2, playerBrightness)
     led.plot_brightness(1, 3, playerBrightness)
     holding = True
@@ -171,7 +163,6 @@ def jingle():
     music.play_tone(Note.E, 200)
     basic.pause(100)
     music.play_tone(Note.D, 200)
-
 
 # Button Events
 input.on_button_event(Button.AB, input.button_event_click(), jingle)
